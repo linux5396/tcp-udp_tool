@@ -1,0 +1,106 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="WpfApp1.MainWindow"
+        mc:Ignorable="d"
+        Icon="/WpfApp1;component/img/logo.png"
+        Title="TCP/UDP测试工具-QG内部            @CopyRight 2019 version 1.0" Height="525.2" Width="800"
+    ResizeMode="CanMinimize" >
+    <Window.Resources>
+        <Style x:Key="bu" TargetType="Button">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="FontWeight" Value="Black"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="#FFFF4300"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="0" CornerRadius="16" Name="PART_Background">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                    <GradientStop Color="White" Offset="0.0" />
+                                    <GradientStop Color="#FF5C25D7" Offset="0.5" />
+                                    <GradientStop Color="White" Offset="0.0" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+
+    <Grid Margin="0,10,22.6,0.2" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="406*"/>
+            <ColumnDefinition Width="365*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="" HorizontalAlignment="Left" Height="187" Margin="391,277,-13.8,0" VerticalAlignment="Top" Width="394" Grid.ColumnSpan="2"/>
+        <GroupBox Header="QG studio " HorizontalAlignment="Left" Height="173" Margin="10,10,-7,0" VerticalAlignment="Top" Width="768" Grid.ColumnSpan="2">
+            <ComboBox HorizontalAlignment="Left" Margin="347,28,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#FFF9F7F7" SelectionChanged="ComboBox_SelectionChanged" x:Name="protocol" Foreground="#FFD71A1A" Opacity="0.495" IsReadOnly="True" Height="22">
+                <ComboBox.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                        <GradientStop Color="#FFEDF1EF" Offset="1"/>
+                    </LinearGradientBrush>
+                </ComboBox.Background>
+                <ComboBoxItem Content="UDP" HorizontalAlignment="Left" Width="118.4" Selected="ComboBoxItem_Selected"/>
+                <ComboBoxItem Content="TCP" HorizontalAlignment="Left" Width="118.4" Selected="ComboBoxItem_Selected_1"/>
+            </ComboBox>
+        </GroupBox>
+        <Button  Name="button_start" Style="{StaticResource bu}" Content="Send" HorizontalAlignment="Left" Margin="203.6,53,0,0" VerticalAlignment="Top" Width="79" Click="Ping" Opacity="0.64" ClipToBounds="True" Background="#FF6318B1" Height="69" Grid.Column="1"/>
+        <Label Content="目标IP"  HorizontalAlignment="Left" Margin="87,53,0,0" VerticalAlignment="Top" Cursor="Hand" RenderTransformOrigin="-3.769,-2.398" Background="#FF7E1BE5" Width="63" Height="23" />
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="150,53,0,0" TextWrapping="Wrap" x:Name="text_box1" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+        <Label Content="目标端口" HorizontalAlignment="Left" Margin="87,106,0,0" VerticalAlignment="Top" Cursor="Hand" RenderTransformOrigin="-3.769,-2.398" Background="#FF7E1BE5" Width="63" Height="23" />
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="150,106,0,0" TextWrapping="Wrap" x:Name="dst_port" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+        <Label Content="发&#xA;送&#xA;内&#xA;容" HorizontalAlignment="Left" Margin="37,310,0,0" VerticalAlignment="Top" Cursor="Hand" RenderTransformOrigin="-3.769,-2.398" Background="#FF7E1BE5" Width="27" Height="71" />
+        <Label Content="接&#xA;收&#xA;内&#xA;容" HorizontalAlignment="Left" Margin="9.6,310,0,0" VerticalAlignment="Top" Cursor="Hand" RenderTransformOrigin="-3.769,-2.398" Background="#FF7E1BE5" Width="27" Height="71" Grid.Column="1" />
+        <Label Content="Label" HorizontalAlignment="Left" Margin="10,150,-13,0" VerticalAlignment="Top" Width="774" Height="5" Grid.ColumnSpan="2"/>
+        <RichTextBox Name="send_box" Opacity="0.5" HorizontalAlignment="Left" Height="125" Margin="78,309,0,0" VerticalAlignment="Top" Width="234">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text=""/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <RichTextBox Name="receive_box" Opacity="0.5" IsReadOnly="True" HorizontalAlignment="Left" Height="125" Margin="51.6,309,0,0" VerticalAlignment="Top" Width="260" Grid.Column="1">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text="[ Message Received ]"/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <GroupBox Header="" HorizontalAlignment="Left" Height="187" Margin="19,277,0,0" VerticalAlignment="Top" Width="367">
+            <Button Name="tcp_send_button" Style="{StaticResource bu}" Content="Send" HorizontalAlignment="Left" Margin="291,43,0,0" VerticalAlignment="Top" Width="58" Height="60" Click="Button_Click"/>
+        </GroupBox>
+        <Label Content="协议类型" HorizontalAlignment="Left" Margin="302,53,0,0" VerticalAlignment="Top" Cursor="Hand" RenderTransformOrigin="-3.769,-2.398" Background="#FF7E1BE5" Width="63" Height="23" />
+        <Label Content="本机通信端口" HorizontalAlignment="Left" Margin="302,105,0,0" VerticalAlignment="Top" Cursor="Hand" RenderTransformOrigin="-3.769,-2.398" Background="#FF7E1BE5" Width="84" Height="26" />
+        <TextBox HorizontalAlignment="Left" Height="26" Margin="386,105,0,0" TextWrapping="Wrap" x:Name="local_port" VerticalAlignment="Top" Width="100" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="2"/>
+        <RichTextBox Opacity="0.5" IsReadOnly="True" Name ="info_box" HorizontalAlignment="Left" Height="54" Margin="19,207,0,0" VerticalAlignment="Top" Width="734" Grid.ColumnSpan="2" TextChanged="RichTextBox_TextChanged">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text="[ INFO ]"/>
+                </Paragraph>
+                <Paragraph>
+                    <Run/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+
+        <Grid.Background>
+            <ImageBrush ImageSource="/WpfApp1;component/img/qg.png"  Opacity="0.3">
+
+            </ImageBrush>
+        </Grid.Background>
+
+    </Grid>
+</Window>
